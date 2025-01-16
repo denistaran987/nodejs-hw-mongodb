@@ -1,15 +1,16 @@
 import mongoose from 'mongoose';
 import { getEnvVar } from '../utils/getEnvVar.js';
+import { ENV_VAR } from '../config/constans.js';
 
 export const initMongoConnection = async () => {
   try {
-    const user = getEnvVar('MONGODB_USER');
-    const pwd = getEnvVar('MONGODB_PASSWORD');
-    const url = getEnvVar('MONGODB_URL');
-    const db = getEnvVar('MONGODB_DB');
+    const user = getEnvVar(ENV_VAR.MONGODB_USER);
+    const pwd = getEnvVar(ENV_VAR.MONGODB_PASSWORD);
+    const uri = getEnvVar(ENV_VAR.MONGODB_URI);
+    const db = getEnvVar(ENV_VAR.MONGODB_DB);
 
     await mongoose.connect(
-      `mongodb+srv://${user}:${pwd}@${url}/${db}?retryWrites=true&w=majority&appName=DataNest`,
+      `mongodb+srv://${user}:${pwd}@${uri}/${db}?retryWrites=true&w=majority&appName=DataNest`,
     );
     console.log('Mongo connection successfully established!');
   } catch (e) {

@@ -3,8 +3,9 @@ import cors from 'cors';
 import { pinoHttp } from 'pino-http';
 import { getEnvVar } from './utils/getEnvVar.js';
 import { getAllContacts, getContactById } from './services/contacts.js';
+import { ENV_VAR } from './config/constans.js';
 
-const PORT = +getEnvVar('PORT', 3000);
+const PORT = +getEnvVar(ENV_VAR.MONGODB_PORT, 3000);
 
 export const setupServer = () => {
   const app = express();
