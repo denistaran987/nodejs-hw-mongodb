@@ -7,6 +7,13 @@ import {
   updateContact,
 } from '../services/contacts.js';
 
+export const homeController = (req, res, next) => {
+  res.json({
+    status: 200,
+    message: 'Welcome!',
+  });
+};
+
 export const getAllContactsController = async (req, res, next) => {
   const contacts = await getAllContacts();
   res.json({
