@@ -1,6 +1,5 @@
 import { SORT_ORDER } from '../config/constans.js';
 import { ContactsCollection } from '../db/models/contact.js';
-import { validatePagination } from '../middlewares/validatePagination.js';
 import { calculatePaginationData } from '../utils/calculatePaginationData.js';
 
 export const getAllContacts = async ({
@@ -43,7 +42,6 @@ export const getAllContacts = async ({
   //   .sort({ [sortBy]: sortOrder })
   //   .exec();
 
-  validatePagination(contactsCount, perPage, page);
   const paginationData = calculatePaginationData(contactsCount, perPage, page);
 
   return {
@@ -62,7 +60,6 @@ export const updateContact = async (contactId, payload, options = {}) => {
     includeResultMetadata: true,
     ...options,
   });
-  console.log(rawResult);
 
   if (!rawResult || !rawResult.value) return null;
 
