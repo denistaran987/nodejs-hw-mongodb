@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import { pinoHttp } from 'pino-http';
 import { getEnvVar } from './utils/getEnvVar.js';
-import { ENV_VAR } from './config/constans.js';
+import { ENV_VAR } from './constans/env/constans.js';
 import { errorHandler } from './middlewares/errorHandler.js';
 import { notFoundHandler } from './middlewares/notFoundHandler.js';
 import router from './routers/index.js';
