@@ -1,5 +1,11 @@
 import { ONE_MONTH } from '../constans/times/constans.js';
-import { loginUser, logoutUser, refreshUserSession, registerUser } from '../services/auth.js';
+import {
+  loginUser,
+  logoutUser,
+  refreshUserSession,
+  registerUser,
+  requestResetToken,
+} from '../services/auth.js';
 import { serializedUser } from '../utils/serializedUser.js';
 
 const setupSession = (session, res) => {
@@ -14,7 +20,7 @@ const setupSession = (session, res) => {
   });
 };
 
-export const registerUserController = async (req, res, next) => {
+export const registerUserController = async (req, res) => {
   const user = await registerUser(req.body);
 
   res.status(201).json({
@@ -24,7 +30,7 @@ export const registerUserController = async (req, res, next) => {
   });
 };
 
-export const loginUserController = async (req, res, next) => {
+export const loginUserController = async (req, res) => {
   const session = await loginUser(req.body);
   setupSession(session, res);
 
@@ -62,5 +68,15 @@ export const refreshUserSessionController = async (req, res) => {
     data: {
       accessToken: session.accessToken,
     },
+  });
+};
+
+export const requestResetEmailController = async (req, res, next) => {
+  await requestResetToken(req.body.email);
+
+  res.json({
+    status: 200,
+    message: 'Reset password email has been successfully sent.',
+    data: {},
   });
 };
