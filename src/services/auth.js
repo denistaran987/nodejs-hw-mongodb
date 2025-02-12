@@ -50,7 +50,7 @@ export const loginUser = async (userData) => {
   const isEqual = await bcrypt.compare(userData.password, user.password);
 
   if (!isEqual) {
-    throw createHttpError(401, 'Unauthorized');
+    throw createHttpError(401, 'Invalid login or password');
   }
 
   await SessionsCollection.deleteOne({ userId: user._id });
@@ -125,4 +125,34 @@ export const requestResetToken = async (email) => {
     console.log(err);
     throw createHttpError(500, 'Failed to send the email, please try again later.');
   }
+};
+
+export const resetPassword = async (payload) => {
+  let entries;
+
+  try {
+    entries = jwt.verify(payload.token, getEnvVar('JWT_SECRET'));
+  } catch (err) {
+    if (err instanceof jwt.TokenExpiredError) {
+      throw createHttpError(401, 'Token is expired or invalid.');
+    }
+
+    if (err instanceof Error) throw createHttpError(401, err.message);
+    throw err;
+  }
+
+  const user = await UsersCollection.findOne({
+    email: entries.email,
+    _id: entries.sub,
+  });
+
+  if (!user) {
+    throw createHttpError(404, 'User not found');
+  }
+
+  const encryptedPassword = await bcrypt.hash(payload.password, 10);
+
+  await SessionsCollection.deleteOne({ userId: user._id });
+
+  await UsersCollection.updateOne({ _id: user._id }, { password: encryptedPassword });
 };
