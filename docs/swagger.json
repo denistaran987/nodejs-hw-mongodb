@@ -204,9 +204,9 @@
                 "type": "object",
                 "required": [
                   "name",
+                  "email",
                   "phoneNumber",
-                  "contactType",
-                  "parentId"
+                  "contactType"
                 ],
                 "properties": {
                   "name": {
@@ -238,11 +238,6 @@
                     "description": "Indicates whether the contact is marked as a favourite",
                     "type": "boolean",
                     "example": false
-                  },
-                  "parentId": {
-                    "description": "Contact's parent id",
-                    "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
                   },
                   "photo": {
                     "description": "Contact's photo",
@@ -463,11 +458,6 @@
                     "description": "Indicates whether the contact is marked as a favourite",
                     "type": "boolean",
                     "example": false
-                  },
-                  "parentId": {
-                    "description": "Contact's parent id",
-                    "type": "string",
-                    "example": "65e4decdd286b30065d54af9"
                   },
                   "photo": {
                     "description": "Contact's photo",
@@ -743,28 +733,6 @@
         "operationId": "refreshUser",
         "description": "Refreshes the user's session by using the refresh token stored in cookies.",
         "security": [],
-        "parameters": [
-          {
-            "in": "cookie",
-            "name": "sessionId",
-            "schema": {
-              "type": "string",
-              "example": "abc123xyzasdsadsad"
-            },
-            "required": true,
-            "description": "The session ID stored in cookies."
-          },
-          {
-            "in": "cookie",
-            "name": "refreshToken",
-            "schema": {
-              "type": "string",
-              "example": "abc123xyzsadsadjlkdjasdjladj"
-            },
-            "required": true,
-            "description": "The refresh token used to generate a new access token."
-          }
-        ],
         "responses": {
           "200": {
             "description": "Successfully refreshed session. A new access token has been generated.",
