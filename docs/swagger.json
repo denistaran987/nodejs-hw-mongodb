@@ -431,22 +431,37 @@
                 "properties": {
                   "name": {
                     "description": "Contact's name",
-                    "type": "string",
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "default": "",
                     "example": "Ivan Franko"
                   },
                   "phoneNumber": {
                     "description": "Contact's phoneNumber",
-                    "type": "string",
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "default": "",
                     "example": "+380927842456"
                   },
                   "email": {
                     "description": "Contact's email",
-                    "type": "string",
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "default": "",
                     "example": "frankoivan@gmail.com"
                   },
                   "contactType": {
                     "description": "Contact's type",
-                    "type": "string",
+                    "type": [
+                      "string",
+                      "null"
+                    ],
                     "enum": [
                       "work",
                       "home",
@@ -456,12 +471,18 @@
                   },
                   "isFavourite": {
                     "description": "Indicates whether the contact is marked as a favourite",
-                    "type": "boolean",
+                    "type": [
+                      "boolean",
+                      "null"
+                    ],
                     "example": false
                   },
                   "photo": {
                     "description": "Contact's photo",
-                    "type": "string",
+                    "type": [
+                      "string",
+                      "null"
+                    ],
                     "format": "binary"
                   }
                 }
